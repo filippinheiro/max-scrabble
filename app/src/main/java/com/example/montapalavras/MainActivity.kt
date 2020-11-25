@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Toast
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
 
@@ -28,14 +27,11 @@ class MainActivity : AppCompatActivity() {
 
             val availableLetters = editText.text.toString()
 
-            var nSyllables = 0
 
-            for (letter in availableLetters) {
-                if(letter == 'a' || letter == 'e' || letter == 'i' || letter == 'o' || letter == 'u')
-                    nSyllables++
-            }
 
-            var (result, remains, points) = ScrabbleWithMaps(availableLetters).findBestCandidate(nSyllables)
+            val (result, points, remains) = MatchMaker(availableLetters).findBestWord()
+
+
 
         }
 
