@@ -19,6 +19,7 @@ package com.example.montapalavras
  *
  * */
 
+//TODO - acertar função findBestCandidate
 
 class ScrabbleWithMaps (private val availableLetters: String){
 
