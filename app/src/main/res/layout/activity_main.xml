@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    tools:ignore="UnusedAttribute"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0sp"
+        android:layout_weight="2"
+        android:background="@color/colorPrimary"
+        android:backgroundTint="@color/colorPrimaryDark">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textAccent"
+            android:text="@string/app_name"
+            android:textFontWeight="500"
+
+
+            android:textSize="36sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16sp"
+            />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="0sp"
+        android:layout_weight="10"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/presentation"
+            tools:visibility="gone"
+            android:layout_marginStart="16sp"
+            android:layout_marginEnd="16sp"
+            android:textFontWeight="500"
+            android:textSize="26sp"
+            android:layout_gravity="center"/>
+
+        <LinearLayout
+            android:id="@+id/result_layout"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:gravity="center">
+
+            <com.google.android.material.textview.MaterialTextView
+               android:id="@+id/points"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16sp"
+                android:layout_marginEnd="16sp"
+                android:text="@string/score"
+                android:layout_gravity="center"
+                tools:text="Palavra de 8 pontos"
+                android:textSize="16sp"
+                android:textFontWeight="500"
+
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/letters"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/simple_item"
+                android:layout_marginBottom="10sp"
+                />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1sp"
+                android:layout_marginEnd="16sp"
+                android:layout_marginStart="16sp"
+                android:layout_marginBottom="10sp"
+                android:layout_marginTop="10sp"
+                android:background="@color/colorPrimaryDark"
+                tools:ignore="SmallSp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16sp"
+                android:layout_marginEnd="16sp"
+                android:layout_gravity="center"
+                tools:text="Sobraram:"
+                android:text="@string/remain_label"
+                android:textSize="16sp"
+                android:textFontWeight="500"/>
+
+            <com.google.android.material.circularreveal.CircularRevealLinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:layout_marginBottom="10sp"
+                android:orientation="horizontal">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/remains"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10sp"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/simple_item"
+                    android:layout_marginBottom="10sp"
+                    />
+
+            </com.google.android.material.circularreveal.CircularRevealLinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="bottom">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtText"
+            android:layout_width="320sp"
+            android:layout_height="match_parent"
+            android:autofillHints="text"
+            android:gravity="bottom"
+            android:hint="@string/hint"
+            android:inputType="text" />
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:id="@+id/btn_ok"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:layout_height="match_parent"
+            android:text="@string/ok_label"
+            android:background="@android:color/transparent"
+            android:textSize="20sp"
+            android:textFontWeight="500"
+            android:textColor="@color/PrimaryLight"
+            />
+    </LinearLayout>
+
+
+</LinearLayout>

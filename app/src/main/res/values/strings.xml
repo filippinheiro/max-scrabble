@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Monta Palavras</string>
+    <string name="presentation">Digite as letras disponíveis nesta jogada</string>
+    <string name="hint">Letras disponíveis</string>
+    <string name="score">Palavra de %1$d pontos</string>
+    <string name="remain_label">sobraram</string>
+    <string name="letter">%1$c</string>
+    <string name="ok_label">OK</string>
+</resources>
