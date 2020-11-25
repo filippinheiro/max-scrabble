@@ -10,6 +10,15 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
 import java.util.*
 
+/**
+ *
+ * Aqui não ocorre nada muito diferente a nao ser quando eu adiciono o
+ * Listener onClick pro botao perfomar a atividade e escondo a View de apresentação
+ * e mostro as Views com o resultado do jogo
+ *
+ *
+ * */
+
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

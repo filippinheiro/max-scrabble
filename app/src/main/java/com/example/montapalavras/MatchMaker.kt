@@ -1,20 +1,56 @@
 package com.example.montapalavras
 
+
 import org.apache.commons.lang3.StringUtils
+import java.text.Normalizer
 import java.util.*
 
+/**
+ * Nessa versão o algoritmo é bem simples, ele percorre o dicionpário por inteiro e encontra os matches
+ *
+ * A partir daí ele encontra o grupo de palavras que pode ter a maior pontuação (pois pode ser mais de uma) e seleciona a menor
+ *
+ *
+ * */
+
+/**
+ * Essa versão nao desconsidera acentos, espaços e caracteres especiais por que eu nao testei super ainda, então
+ * decidi incluir essa versão um pouco melhor testada
+ *
+ * */
 
 class MatchMaker (private var availableLetters: String){
 
 
-    
+    /**
+     *
+     * Eu não sou muito confiante com REGEX kkk
+     *
+     * */
+
+    init {
+        sanitizeLetters()
+    }
+
+    private fun sanitizeLetters() {
+
+        availableLetters = Normalizer.normalize(availableLetters, Normalizer.Form.NFD)
+
+
+
+
+        availableLetters = availableLetters.replace("[^\\p{ASCII}]".toRegex(), "")
+
+        availableLetters = StringUtils.deleteWhitespace(availableLetters)
+
+    }
 
     private val wordsList = listOf("Abacaxi", "Manada", "mandar", "porta", "mesa", "Dado", "Mangas", "Ja", "coisas", "radiografia",
-        "matemática", "Drogas", "prédios", "implementação", "computador", "balão", "Xicara", "Tedio",
-        "faixa", "Livro", "deixar", "superior", "Profissão", "Reunião", "Predios", "Montanha", "Botânica",
-        "Banheiro", "Caixas", "Xingamento", "Infestação", "Cupim", "Premiada", "empanada", "Ratos",
+        "matematica", "Drogas", "predios", "implementacao", "computador", "balao", "Xicara", "Tedio",
+        "faixa", "Livro", "deixar", "superior", "Profissao", "Reuniao", "Predios", "Montanha", "Botânica",
+        "Banheiro", "Caixas", "Xingamento", "Infestacao", "Cupim", "Premiada", "empanada", "Ratos",
         "Ruído", "Antecedente", "Empresa", "Emissario", "Folga", "Fratura", "Goiaba", "Gratuito",
-        "Hidrico", "Homem", "Jantar", "Jogos", "Montagem", "Manual", "Nuvem", "Neve", "Operação",
+        "Hidrico", "Homem", "Jantar", "Jogos", "Montagem", "Manual", "Nuvem", "Neve", "Operacao",
         "Ontem", "Pato", "Pe", "viagem", "Queijo", "Quarto", "Quintal", "Solto", "rota", "Selva",
         "Tatuagem", "Tigre", "Uva", "Último", "Vituperio", "Voltagem", "Zangado", "Zombaria", "Dor"
     )
@@ -28,13 +64,18 @@ class MatchMaker (private var availableLetters: String){
         10 to listOf('Q', 'Z')
     )
 
+    /**
+     * Aqui ele verifica a palavra considerando já ser um match, se encontrar um caracter que não está disponível, ele pula para a próxima e desiste de adicionar.
+     *
+     * Ao final se ele não desistiu de adicionar (é um match) ele adiciona na lista de matches
+     * */
 
     private fun findMatches(): List<String>{
         val matches = mutableListOf<String>()
         var isMatch: Boolean
         outerLoop@ for(word in wordsList) {
             isMatch = true
-            var lettersToLoop = availableLetters.toUpperCase()
+            var lettersToLoop = availableLetters.toUpperCase(Locale.US)
             for(letter in word) {
                 if(!lettersToLoop.contains(letter.toUpperCase())) {
                     isMatch = false
@@ -49,6 +90,12 @@ class MatchMaker (private var availableLetters: String){
         return matches
 
     }
+
+    /**
+     * Essa função descobre dentre os matches qual a maior pontuação adquirida, como mais de uma palavra
+     * pode ter a mesma pontuação, ele considera como uma lista de palavras com a maior pontuação
+     *
+     * */
 
     private fun findBestScores() : Pair<List<String>, Int> {
         val matchesList = findMatches()
@@ -72,6 +119,14 @@ class MatchMaker (private var availableLetters: String){
 
     }
 
+    /**
+     * Essa descobre qual a menor palavra da maior pontuação
+     *
+     *
+     * (e também acerta quais sao as letras que sobraram kkkk meio gambiarra releva)
+     *
+     * */
+
     fun findBestWord(): Triple<String, Int, String> {
         val (unsortedMatches, score) = findBestScores()
         if(unsortedMatches.isNotEmpty()) {
@@ -91,6 +146,23 @@ class MatchMaker (private var availableLetters: String){
         }
         return Triple("", 0, availableLetters)
     }
+
+
+    /**
+     *
+     * Essas duas funções são helpers que eu criei para poder usar e deixar o código mais
+     * claro pra mim mesmo
+     *
+     * A primeira calcula a pontuação dada uma palavra
+     * Essa eu uso quando eu já tenho os matches para poder calcular a pontuação de cada match de um jeito mais claro
+     * pra quem le
+     *
+     *
+     * e a segunda remove uma string de um index (dada a string e o index)
+     * eu usei para ir remover as 'pecinhas' do jogo
+     *
+     *
+     * */
 
     private fun pointsHelperFunction(word: String): Int{
         var point = 0
