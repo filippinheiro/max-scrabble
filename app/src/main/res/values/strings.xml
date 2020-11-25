@@ -4,6 +4,7 @@
     <string name="hint">Letras disponíveis</string>
     <string name="score">Palavra de %1$d pontos</string>
     <string name="remain_label">sobraram</string>
-    <string name="letter">%1$c</string>
+    <string name="word_letters">%1$s</string>
     <string name="ok_label">OK</string>
+    <string name="remain_label_letters">%1$s</string>
 </resources>

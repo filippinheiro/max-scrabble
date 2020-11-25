@@ -1,8 +1,13 @@
 package com.example.montapalavras
 
+import org.apache.commons.lang3.StringUtils
+import java.util.*
 
 
-class MatchMaker (private val availableLetters: String){
+class MatchMaker (private var availableLetters: String){
+
+
+    
 
     private val wordsList = listOf("Abacaxi", "Manada", "mandar", "porta", "mesa", "Dado", "Mangas", "Ja", "coisas", "radiografia",
         "matemática", "Drogas", "prédios", "implementação", "computador", "balão", "Xicara", "Tedio",
@@ -69,17 +74,22 @@ class MatchMaker (private val availableLetters: String){
 
     fun findBestWord(): Triple<String, Int, String> {
         val (unsortedMatches, score) = findBestScores()
-        val sortedMatches = unsortedMatches.sortedBy {
-            it.length
+        if(unsortedMatches.isNotEmpty()) {
+            val sortedMatches = unsortedMatches.sortedBy {
+                it.length
+            }
+
+            var remainings = availableLetters.toUpperCase(Locale.US)
+
+            for (letter in sortedMatches[0]) {
+                val index = remainings.indexOf(letter.toUpperCase())
+                print("$letter is index $index\n")
+                remainings = removeAtHelperFunction(remainings, index)
+            }
+
+            return Triple(sortedMatches[0], score, remainings)
         }
-
-        var remainings = availableLetters
-
-        for(letter in sortedMatches[0]) {
-            remainings = removeAtHelperFunction(remainings, remainings.indexOf(letter))
-        }
-
-        return Triple(sortedMatches[0], score, remainings)
+        return Triple("", 0, availableLetters)
     }
 
     private fun pointsHelperFunction(word: String): Int{
